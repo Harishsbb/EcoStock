@@ -19,35 +19,46 @@ export const ReportsPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 max-w-4xl mx-auto animate-in fade-in duration-300">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 p-6 rounded-3xl border border-slate-800 shadow-xl">
+    <div className="space-y-6 max-w-4xl mx-auto animate-in fade-in duration-300 pb-8">
+      {/* Header Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/90 shadow-2xs">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold mb-2">
-            <FileSpreadsheet className="w-3.5 h-3.5" /> Store Analytics & Compliance
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-bold mb-2">
+            <FileSpreadsheet className="w-3.5 h-3.5" /> Compliance & Store Intelligence
           </div>
-          <h2 className="text-2xl font-extrabold text-white tracking-tight">Reports & CSV Export</h2>
-          <p className="text-xs text-slate-400 mt-1">Generate comprehensive inventory valuation, waste audit, and sales reports.</p>
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight">Reports & CSV Export</h2>
+          <p className="text-xs text-slate-500 mt-1 max-w-xl">
+            Download store inventory valuation, waste audit metrics, and supplier performance summaries in CSV format.
+          </p>
         </div>
 
         <button
           onClick={handleExportCsv}
-          className="px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-extrabold text-xs shadow-lg shadow-emerald-500/20 hover:from-emerald-400 hover:to-teal-400 flex items-center gap-2"
+          className="px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-black text-xs shadow-md shadow-emerald-600/20 hover:from-emerald-700 hover:to-teal-600 transition-all flex items-center gap-2"
         >
-          <Download className="w-4 h-4" /> Export CSV Master Report
+          <Download className="w-4 h-4" /> Download Master CSV Report
         </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 space-y-3">
-          <CheckCircle2 className="w-8 h-8 text-emerald-400" />
-          <h3 className="font-extrabold text-base text-white">Full Inventory Valuation Report</h3>
-          <p className="text-xs text-slate-400">Includes all SKUs, quantities, purchase costs, selling prices, supplier associations, and status indicators.</p>
+        <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs space-y-3">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center font-bold">
+            <CheckCircle2 className="w-6 h-6" />
+          </div>
+          <h3 className="font-black text-base text-slate-900">Inventory Valuation & SKU Report</h3>
+          <p className="text-xs text-slate-500 leading-relaxed">
+            Contains all registered SKUs, stock counts, cost prices, target sales margins, supplier mapping, and current status flags.
+          </p>
         </div>
 
-        <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 space-y-3">
-          <ShieldCheck className="w-8 h-8 text-sky-400" />
-          <h3 className="font-extrabold text-base text-white">Waste & Expiry Recovery Audit</h3>
-          <p className="text-xs text-slate-400">Detailed breakdown of recovered revenue via smart discounts versus actual discarded stock value loss.</p>
+        <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs space-y-3">
+          <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-700 border border-sky-200 flex items-center justify-center font-bold">
+            <ShieldCheck className="w-6 h-6" />
+          </div>
+          <h3 className="font-black text-base text-slate-900">Waste Salvage & Expiry Audit</h3>
+          <p className="text-xs text-slate-500 leading-relaxed">
+            Detailed tracking of revenue salvaged through AI dynamic markdowns vs unrecoverable damaged or expired stock loss.
+          </p>
         </div>
       </div>
     </div>

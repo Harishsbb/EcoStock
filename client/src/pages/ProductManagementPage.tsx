@@ -55,15 +55,15 @@ export const ProductManagementForm: React.FC<FormProps> = ({ initialProduct, onS
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 text-slate-200">
+    <form onSubmit={handleSubmit} className="space-y-4 text-slate-800">
       {error && (
-        <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs">
+        <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold">
           {error}
         </div>
       )}
 
       <div>
-        <label className="block text-xs font-semibold uppercase mb-1 text-slate-300">Product Name</label>
+        <label className="block text-xs font-extrabold uppercase mb-1 text-slate-700">Product Name</label>
         <input
           type="text"
           name="name"
@@ -71,43 +71,43 @@ export const ProductManagementForm: React.FC<FormProps> = ({ initialProduct, onS
           value={formData.name}
           onChange={handleChange}
           placeholder="e.g. Amul Taaza Toned Milk 1L"
-          className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-sm focus:outline-none focus:border-emerald-500"
+          className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:bg-white focus:border-emerald-500 font-medium"
         />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs font-semibold uppercase mb-1 text-slate-300">SKU Code</label>
+          <label className="block text-xs font-extrabold uppercase mb-1 text-slate-700">SKU Code</label>
           <input
             type="text"
             name="sku"
             required
             value={formData.sku}
             onChange={handleChange}
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-sm focus:outline-none focus:border-emerald-500 font-mono"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:bg-white focus:border-emerald-500 font-mono font-medium"
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold uppercase mb-1 text-slate-300">Barcode</label>
+          <label className="block text-xs font-extrabold uppercase mb-1 text-slate-700">Barcode Number</label>
           <input
             type="text"
             name="barcode"
             required
             value={formData.barcode}
             onChange={handleChange}
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-sm focus:outline-none focus:border-emerald-500 font-mono"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:bg-white focus:border-emerald-500 font-mono font-medium"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs font-semibold uppercase mb-1 text-slate-300">Category</label>
+          <label className="block text-xs font-extrabold uppercase mb-1 text-slate-700">Category</label>
           <select
             name="category"
             value={formData.category}
             onChange={handleChange}
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-sm focus:outline-none focus:border-emerald-500"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:bg-white focus:border-emerald-500 font-medium"
           >
             <option value="Dairy & Milk">Dairy & Milk</option>
             <option value="Bakery & Bread">Bakery & Bread</option>
@@ -118,12 +118,12 @@ export const ProductManagementForm: React.FC<FormProps> = ({ initialProduct, onS
           </select>
         </div>
         <div>
-          <label className="block text-xs font-semibold uppercase mb-1 text-slate-300">Supplier</label>
+          <label className="block text-xs font-extrabold uppercase mb-1 text-slate-700">Supplier Vendor</label>
           <select
             name="supplierId"
             value={formData.supplierId}
             onChange={handleChange}
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-sm focus:outline-none focus:border-emerald-500"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:bg-white focus:border-emerald-500 font-medium"
           >
             <option value="">Select Supplier</option>
             {suppliers.map((sup) => (
@@ -137,80 +137,80 @@ export const ProductManagementForm: React.FC<FormProps> = ({ initialProduct, onS
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div>
-          <label className="block text-xs font-semibold uppercase mb-1 text-slate-300">Purchase Price (₹)</label>
+          <label className="block text-xs font-extrabold uppercase mb-1 text-slate-700">Cost Price (₹)</label>
           <input
             type="number"
             name="purchasePrice"
             required
             value={formData.purchasePrice}
             onChange={handleChange}
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-sm focus:outline-none focus:border-emerald-500"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:bg-white focus:border-emerald-500 font-medium"
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold uppercase mb-1 text-slate-300">Selling Price (₹)</label>
+          <label className="block text-xs font-extrabold uppercase mb-1 text-slate-700">Sell Price (₹)</label>
           <input
             type="number"
             name="sellingPrice"
             required
             value={formData.sellingPrice}
             onChange={handleChange}
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-sm focus:outline-none focus:border-emerald-500"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:bg-white focus:border-emerald-500 font-medium"
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold uppercase mb-1 text-slate-300">Quantity</label>
+          <label className="block text-xs font-extrabold uppercase mb-1 text-slate-700">Quantity</label>
           <input
             type="number"
             name="quantity"
             required
             value={formData.quantity}
             onChange={handleChange}
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-sm focus:outline-none focus:border-emerald-500"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:bg-white focus:border-emerald-500 font-medium"
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold uppercase mb-1 text-slate-300">Min Stock</label>
+          <label className="block text-xs font-extrabold uppercase mb-1 text-slate-700">Min Stock</label>
           <input
             type="number"
             name="minimumStock"
             required
             value={formData.minimumStock}
             onChange={handleChange}
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-sm focus:outline-none focus:border-emerald-500"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:bg-white focus:border-emerald-500 font-medium"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs font-semibold uppercase mb-1 text-slate-300">Expiry Date</label>
+          <label className="block text-xs font-extrabold uppercase mb-1 text-slate-700">Expiry Date</label>
           <input
             type="date"
             name="expiryDate"
             value={formData.expiryDate}
             onChange={handleChange}
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-sm focus:outline-none focus:border-emerald-500"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:bg-white focus:border-emerald-500 font-medium"
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold uppercase mb-1 text-slate-300">Image URL</label>
+          <label className="block text-xs font-extrabold uppercase mb-1 text-slate-700">Image URL</label>
           <input
             type="url"
             name="imageUrl"
             value={formData.imageUrl}
             onChange={handleChange}
             placeholder="https://..."
-            className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-sm focus:outline-none focus:border-emerald-500"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:bg-white focus:border-emerald-500 font-medium"
           />
         </div>
       </div>
 
-      <div className="pt-4 flex justify-end gap-3 border-t border-slate-800">
+      <div className="pt-4 flex justify-end gap-3 border-t border-slate-100">
         <button
           type="submit"
           disabled={loading}
-          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-sm shadow-lg shadow-emerald-500/20 hover:from-emerald-400 hover:to-teal-400 flex items-center gap-2"
+          className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md shadow-emerald-600/20 transition-all flex items-center gap-2"
         >
           <Save className="w-4 h-4" /> {loading ? "Saving..." : initialProduct ? "Update Product" : "Save Product"}
         </button>

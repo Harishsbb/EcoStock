@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { productService, Product } from "../services/productService";
 import { salesService, SaleItem } from "../services/salesService";
-import { Search, ShoppingCart, Plus, Minus, Trash2, CheckCircle2, CreditCard, Wallet, Smartphone } from "lucide-react";
+import { Search, ShoppingCart, Plus, Minus, Trash2, CheckCircle2, CreditCard, Wallet, Smartphone, Sparkles } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export const POSPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -94,7 +95,6 @@ export const POSPage: React.FC = () => {
 
       setCompletedSale(res);
       setCart([]);
-      // Refresh products stock
       const updated = await productService.getProducts();
       setProducts(updated.products || []);
     } catch (err: any) {
@@ -111,25 +111,25 @@ export const POSPage: React.FC = () => {
   });
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-8rem)] animate-in fade-in duration-300">
-      {/* Left Column: Product Selection Grid */}
-      <div className="lg:col-span-2 flex flex-col space-y-4 h-full overflow-hidden">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 min-h-[calc(100vh-8rem)] animate-in fade-in duration-300 pb-8">
+      {/* Left Column: Register Search & Product Grid */}
+      <div className="lg:col-span-2 flex flex-col space-y-4 h-full">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-slate-200/90 shadow-2xs">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search POS items..."
-              className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 text-sm focus:outline-none focus:border-emerald-500"
+              placeholder="Search POS items or scan barcode..."
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs sm:text-sm focus:outline-none focus:bg-white focus:border-emerald-500"
             />
           </div>
 
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 text-xs focus:outline-none focus:border-emerald-500"
+            className="px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold focus:outline-none focus:border-emerald-500"
           >
             <option value="ALL">All Categories</option>
             <option value="Dairy & Milk">Dairy & Milk</option>
@@ -141,62 +141,63 @@ export const POSPage: React.FC = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 gap-3 pr-1">
+        <div className="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 gap-3 pr-1 max-h-[600px]">
           {filteredProducts.map((prod) => (
-            <div
+            <motion.div
               key={prod._id}
+              whileHover={{ y: -2 }}
               onClick={() => addToCart(prod)}
-              className="p-3 rounded-2xl bg-slate-900 border border-slate-800 hover:border-emerald-500/50 cursor-pointer transition-all flex flex-col justify-between group"
+              className="p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-emerald-400 cursor-pointer transition-all flex flex-col justify-between group"
             >
               <div className="space-y-2">
                 <img
-                  src={prod.imageUrl}
+                  src={prod.imageUrl || "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80"}
                   alt={prod.name}
-                  className="w-full h-24 rounded-xl object-cover border border-slate-800 bg-slate-950"
+                  className="w-full h-24 rounded-xl object-cover border border-slate-200 bg-slate-50"
                 />
                 <div>
-                  <h4 className="font-semibold text-xs text-slate-200 line-clamp-1 group-hover:text-emerald-400">
+                  <h4 className="font-bold text-xs text-slate-900 line-clamp-1 group-hover:text-emerald-700">
                     {prod.name}
                   </h4>
-                  <p className="text-[10px] text-slate-400">Qty: {prod.quantity} units</p>
+                  <p className="text-[10px] text-slate-500 font-medium">Stock: {prod.quantity} units</p>
                 </div>
               </div>
-              <div className="mt-2 flex items-center justify-between pt-2 border-t border-slate-800">
-                <span className="font-extrabold text-sm text-emerald-400">₹{prod.sellingPrice}</span>
-                <span className="p-1 rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-colors">
+              <div className="mt-2 flex items-center justify-between pt-2 border-t border-slate-100">
+                <span className="font-black text-sm text-emerald-700">₹{prod.sellingPrice}</span>
+                <span className="p-1 rounded-lg bg-emerald-50 text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
                   <Plus className="w-3.5 h-3.5" />
                 </span>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Right Column: Checkout Cart & Invoice Summary */}
-      <div className="p-5 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col justify-between h-full shadow-2xl">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+      {/* Right Column: Checkout Drawer */}
+      <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between h-full space-y-4">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
           <div className="flex items-center gap-2">
-            <ShoppingCart className="w-5 h-5 text-emerald-400" />
-            <h3 className="font-extrabold text-base text-white">Current POS Order</h3>
+            <ShoppingCart className="w-5 h-5 text-emerald-600" />
+            <h3 className="font-black text-base text-slate-900">Current POS Order</h3>
           </div>
-          <span className="text-xs bg-slate-800 px-2.5 py-1 rounded-full text-slate-300 font-semibold">
+          <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full font-bold">
             {cart.length} Items
           </span>
         </div>
 
         {/* Cart Item List */}
-        <div className="flex-1 overflow-y-auto my-4 space-y-2 divide-y divide-slate-800/60 pr-1">
+        <div className="flex-1 overflow-y-auto space-y-2 divide-y divide-slate-100 pr-1 max-h-[340px]">
           {cart.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-center text-slate-500 space-y-2">
-              <ShoppingCart className="w-10 h-10 stroke-1 text-slate-600" />
-              <p className="text-xs">Select products from the grid to add to basket.</p>
+            <div className="h-44 flex flex-col items-center justify-center text-center text-slate-400 space-y-2">
+              <ShoppingCart className="w-10 h-10 stroke-1 text-slate-300" />
+              <p className="text-xs font-medium">Click items on the left to add to basket.</p>
             </div>
           ) : (
             cart.map((item) => (
               <div key={item.product._id} className="pt-2 flex items-center justify-between gap-2">
                 <div className="flex-1 truncate">
-                  <p className="font-semibold text-xs text-slate-200 truncate">{item.product.name}</p>
-                  <p className="text-[10px] text-slate-400">
+                  <p className="font-bold text-xs text-slate-900 truncate">{item.product.name}</p>
+                  <p className="text-[10px] text-slate-500 font-mono">
                     ₹{item.product.sellingPrice} × {item.quantity} = ₹
                     {(item.product.sellingPrice - item.discount) * item.quantity}
                   </p>
@@ -205,20 +206,20 @@ export const POSPage: React.FC = () => {
                 <div className="flex items-center gap-1.5">
                   <button
                     onClick={() => updateCartQty(item.product._id, -1)}
-                    className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
+                    className="p-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-700"
                   >
                     <Minus className="w-3 h-3" />
                   </button>
-                  <span className="text-xs font-bold w-5 text-center text-white">{item.quantity}</span>
+                  <span className="text-xs font-black w-5 text-center text-slate-900">{item.quantity}</span>
                   <button
                     onClick={() => updateCartQty(item.product._id, 1)}
-                    className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
+                    className="p-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-700"
                   >
                     <Plus className="w-3 h-3" />
                   </button>
                   <button
                     onClick={() => removeFromCart(item.product._id)}
-                    className="p-1 rounded text-rose-400 hover:bg-rose-500/10 ml-1"
+                    className="p-1 rounded text-rose-600 hover:bg-rose-50 ml-1"
                   >
                     <Trash2 className="w-3 h-3" />
                   </button>
@@ -228,86 +229,86 @@ export const POSPage: React.FC = () => {
           )}
         </div>
 
-        {/* Payment Method & Total Breakdown */}
-        <div className="border-t border-slate-800 pt-4 space-y-3">
+        {/* Payment & Totals */}
+        <div className="border-t border-slate-100 pt-4 space-y-3">
           <div className="flex items-center gap-2">
             <button
               onClick={() => setPaymentMethod("CASH")}
-              className={`flex-1 py-1.5 px-2 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2 px-2 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
                 paymentMethod === "CASH"
-                  ? "bg-emerald-500/15 border-emerald-500 text-emerald-400"
-                  : "bg-slate-950 border-slate-800 text-slate-400"
+                  ? "bg-emerald-50 border-emerald-300 text-emerald-800 shadow-2xs"
+                  : "bg-slate-50 border-slate-200 text-slate-600"
               }`}
             >
               <Wallet className="w-3.5 h-3.5" /> Cash
             </button>
             <button
               onClick={() => setPaymentMethod("UPI")}
-              className={`flex-1 py-1.5 px-2 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2 px-2 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
                 paymentMethod === "UPI"
-                  ? "bg-emerald-500/15 border-emerald-500 text-emerald-400"
-                  : "bg-slate-950 border-slate-800 text-slate-400"
+                  ? "bg-emerald-50 border-emerald-300 text-emerald-800 shadow-2xs"
+                  : "bg-slate-50 border-slate-200 text-slate-600"
               }`}
             >
               <Smartphone className="w-3.5 h-3.5" /> UPI / QR
             </button>
             <button
               onClick={() => setPaymentMethod("CARD")}
-              className={`flex-1 py-1.5 px-2 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2 px-2 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
                 paymentMethod === "CARD"
-                  ? "bg-emerald-500/15 border-emerald-500 text-emerald-400"
-                  : "bg-slate-950 border-slate-800 text-slate-400"
+                  ? "bg-emerald-50 border-emerald-300 text-emerald-800 shadow-2xs"
+                  : "bg-slate-50 border-slate-200 text-slate-600"
               }`}
             >
               <CreditCard className="w-3.5 h-3.5" /> Card
             </button>
           </div>
 
-          <div className="space-y-1 text-xs text-slate-400 pt-2 border-t border-slate-800/60">
-            <div className="flex justify-between">
+          <div className="space-y-1.5 text-xs text-slate-600 pt-2 border-t border-slate-100">
+            <div className="flex justify-between font-medium">
               <span>Subtotal</span>
-              <span className="text-slate-200">₹{subtotal}</span>
+              <span className="text-slate-900 font-bold">₹{subtotal}</span>
             </div>
             {discountTotal > 0 && (
-              <div className="flex justify-between text-emerald-400 font-medium">
-                <span>Markdown Discount</span>
+              <div className="flex justify-between text-emerald-700 font-bold">
+                <span>Markdown Savings</span>
                 <span>-₹{discountTotal}</span>
               </div>
             )}
-            <div className="flex justify-between text-base font-extrabold text-white pt-1">
-              <span>Total Payable</span>
-              <span className="text-emerald-400">₹{total}</span>
+            <div className="flex justify-between text-base font-black text-slate-900 pt-1">
+              <span>Total Amount</span>
+              <span className="text-emerald-700">₹{total}</span>
             </div>
           </div>
 
           <button
             onClick={handleCheckout}
             disabled={cart.length === 0 || loading}
-            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-black text-sm shadow-xl shadow-emerald-500/25 hover:from-emerald-400 hover:to-teal-400 transition-all disabled:opacity-50"
+            className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-black text-sm shadow-md shadow-emerald-600/20 hover:from-emerald-700 hover:to-teal-600 transition-all disabled:opacity-50"
           >
-            {loading ? "Processing Sale..." : `Complete Sale (₹${total})`}
+            {loading ? "Processing..." : `Complete Order (₹${total})`}
           </button>
         </div>
       </div>
 
-      {/* Sale Completion Confirmation Modal */}
+      {/* Sale Completion Modal */}
       {completedSale && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4 text-center">
-            <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
-            <h3 className="text-xl font-extrabold text-white">Sale Completed Successfully!</h3>
-            <p className="text-xs text-slate-400">Invoice: <span className="font-mono text-emerald-400">{completedSale.invoiceNumber}</span></p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
+          <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-6 shadow-2xl space-y-4 text-center">
+            <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
+            <h3 className="text-xl font-black text-slate-900">Order Completed Successfully!</h3>
+            <p className="text-xs text-slate-500 font-mono">Invoice: <span className="font-bold text-slate-900">{completedSale.invoiceNumber}</span></p>
 
-            <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs space-y-2 text-left">
-              <div className="flex justify-between text-slate-400">
-                <span>Payment Method</span>
-                <span className="font-bold text-white">{completedSale.paymentMethod}</span>
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-2 text-left">
+              <div className="flex justify-between text-slate-600">
+                <span>Payment Mode</span>
+                <span className="font-bold text-slate-900">{completedSale.paymentMethod}</span>
               </div>
-              <div className="flex justify-between text-slate-400">
-                <span>Total Items</span>
-                <span className="font-bold text-white">{completedSale.items?.length || 0}</span>
+              <div className="flex justify-between text-slate-600">
+                <span>Items Count</span>
+                <span className="font-bold text-slate-900">{completedSale.items?.length || 0}</span>
               </div>
-              <div className="flex justify-between text-slate-400 text-sm font-bold text-emerald-400 pt-2 border-t border-slate-800">
+              <div className="flex justify-between text-sm font-black text-emerald-700 pt-2 border-t border-slate-200">
                 <span>Amount Paid</span>
                 <span>₹{completedSale.total}</span>
               </div>
@@ -315,9 +316,9 @@ export const POSPage: React.FC = () => {
 
             <button
               onClick={() => setCompletedSale(null)}
-              className="w-full py-3 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs hover:bg-emerald-400"
+              className="w-full py-3 rounded-xl bg-emerald-600 text-white font-black text-xs hover:bg-emerald-700"
             >
-              Start Next Sale
+              Start Next Cashier Sale
             </button>
           </div>
         </div>
