@@ -86,7 +86,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ closeMobileMenu }) => {
         </div>
         <div>
           <h1 className="font-extrabold text-base text-slate-900 tracking-tight leading-none flex items-center gap-1.5">
-            SmartStock
+            EcoStock
             <span className="text-[9px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded-full uppercase font-bold tracking-wider">
               Pro
             </span>

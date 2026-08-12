@@ -37,14 +37,14 @@ export const LoginPage: React.FC = () => {
             <Boxes className="w-7 h-7" />
           </div>
           <div>
-            <h1 className="font-black text-2xl tracking-tight text-white">SmartStock</h1>
-            <p className="text-xs text-emerald-300 font-bold uppercase tracking-wider">Intelligent Inventory SaaS</p>
+            <h1 className="font-black text-2xl tracking-tight text-white">EcoStock</h1>
+            <p className="text-xs text-emerald-300 font-bold uppercase tracking-wider">Intelligent Inventory & Eco SaaS</p>
           </div>
         </div>
 
         <div className="relative z-10 my-12 space-y-6">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold backdrop-blur-md">
-            <Sparkles className="w-4 h-4" /> AI-Powered Command & Expiry Engine
+            <Sparkles className="w-4 h-4" /> AI-Powered Expiry & Sustainability Engine
           </div>
           <h2 className="text-3xl lg:text-5xl font-black tracking-tight text-white leading-tight">
             Predict demand. <br />
@@ -54,7 +54,7 @@ export const LoginPage: React.FC = () => {
             </span>
           </h2>
           <p className="text-slate-300 text-sm max-w-md leading-relaxed">
-            SmartStock turns static inventory management into an active command system with real-time markdown recommendations, stockout forecasting, and inter-shop B2B exchange.
+            EcoStock turns static inventory management into an active command system with real-time markdown recommendations, stockout forecasting, and inter-shop B2B exchange.
           </p>
 
           <div className="grid grid-cols-2 gap-4 pt-4">
@@ -159,7 +159,7 @@ export const LoginPage: React.FC = () => {
                 "Authenticating..."
               ) : (
                 <>
-                  <span>Sign In to SmartStock Command Center</span>
+                  <span>Sign In to EcoStock Command Center</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </>
               )}

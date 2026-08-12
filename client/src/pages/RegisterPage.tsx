@@ -54,7 +54,7 @@ export const RegisterPage: React.FC = () => {
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/20 font-bold">
             <Boxes className="w-6 h-6" />
           </div>
-          <h1 className="font-black text-xl text-slate-900 tracking-tight">SmartStock</h1>
+          <h1 className="font-black text-xl text-slate-900 tracking-tight">EcoStock</h1>
         </div>
 
         <div className="text-center">

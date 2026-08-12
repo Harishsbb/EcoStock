@@ -146,7 +146,7 @@ export const DashboardPage: React.FC = () => {
               Good morning, {user?.name?.split(" ")[0] || "Store Manager"} 👋
             </h2>
             <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-              SmartStock engine actively monitors inventory velocity, predicts stockouts, and optimizes discount markdowns in real-time.
+              EcoStock engine actively monitors inventory velocity, predicts stockouts, and optimizes discount markdowns in real-time.
             </p>
           </div>
 

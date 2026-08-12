@@ -24,7 +24,7 @@ export const WasteSustainabilityPage: React.FC = () => {
           </div>
           <h2 className="text-2xl font-black text-slate-900 tracking-tight">Waste Analytics & Recovery Command</h2>
           <p className="text-xs text-slate-500 mt-1 max-w-2xl">
-            SmartStock's primary differentiator: divert food and retail waste, calculate carbon footprint reduction, and salvage write-off revenue.
+            EcoStock's primary differentiator: divert food and retail waste, calculate carbon footprint reduction, and salvage write-off revenue.
           </p>
         </div>
 

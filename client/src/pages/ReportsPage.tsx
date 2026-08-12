@@ -9,7 +9,7 @@ export const ReportsPage: React.FC = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", `smartstock_inventory_report_${Date.now()}.csv`);
+      link.setAttribute("download", `ecostock_inventory_report_${Date.now()}.csv`);
       document.body.appendChild(link);
       link.click();
       link.remove();

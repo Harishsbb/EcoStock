@@ -67,7 +67,7 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/reports", reportRoutes);
 
 app.get("/api/health", (req, res) => {
-  res.json({ status: "OK", timestamp: new Date(), app: "SmartStock Backend API" });
+  res.json({ status: "OK", timestamp: new Date(), app: "EcoStock Backend API" });
 });
 
 // Error handling
@@ -84,7 +84,7 @@ const startServer = async () => {
   try {
     const productCount = await Product.countDocuments();
     if (productCount === 0) {
-      console.log("Empty database detected. Auto-seeding initial SmartStock demo data...");
+      console.log("Empty database detected. Auto-seeding initial EcoStock demo data...");
       await seedDatabase();
     }
   } catch (err) {
@@ -92,7 +92,7 @@ const startServer = async () => {
   }
 
   const server = app.listen(PORT, () => {
-    console.log(`🚀 SmartStock Server running on port ${PORT}`);
+    console.log(`🚀 EcoStock Server running on port ${PORT}`);
     console.log(`Health check: http://localhost:${PORT}/api/health`);
   });
 
