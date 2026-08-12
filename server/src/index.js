@@ -41,6 +41,16 @@ app.options("*", cors());
 // Middlewares
 app.use(express.json());
 
+// Auto-connect DB middleware for serverless
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/shops", shopRoutes);
@@ -101,4 +111,8 @@ const startServer = async () => {
   });
 };
 
-startServer();
+if (!process.env.VERCEL) {
+  startServer();
+}
+
+export default app;

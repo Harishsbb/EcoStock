@@ -9,7 +9,13 @@ try {
   // ignore if restricted
 }
 
+let isConnected = false;
+
 const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) {
+    return mongoose.connection;
+  }
+
   try {
     const conn = await mongoose.connect(process.env.MONGODB_URI, {
       serverSelectionTimeoutMS: 8000,
@@ -18,15 +24,17 @@ const connectDB = async () => {
     return conn;
   } catch (error) {
     console.error(`MongoDB Atlas Connection Warning: ${error.message}`);
-    console.log("Attempting fallback to local MongoDB mongodb://127.0.0.1:27017/smartstock...");
-    try {
-      const fallbackConn = await mongoose.connect("mongodb://127.0.0.1:27017/smartstock", {
-        serverSelectionTimeoutMS: 3000,
-      });
-      console.log(`Fallback Local MongoDB Connected: ${fallbackConn.connection.host}`);
-      return fallbackConn;
-    } catch (fallbackError) {
-      console.warn("MongoDB is currently offline or unreachable. Backend running with resilient mock memory store.");
+    if (!process.env.VERCEL) {
+      console.log("Attempting fallback to local MongoDB mongodb://127.0.0.1:27017/smartstock...");
+      try {
+        const fallbackConn = await mongoose.connect("mongodb://127.0.0.1:27017/smartstock", {
+          serverSelectionTimeoutMS: 3000,
+        });
+        console.log(`Fallback Local MongoDB Connected: ${fallbackConn.connection.host}`);
+        return fallbackConn;
+      } catch (fallbackError) {
+        console.warn("MongoDB is currently offline or unreachable.");
+      }
     }
   }
 };
